@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Quadrilha</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Comissão 🎪</h1>
+    <p class="sub">Acesso restrito.</p>
+    <div class="card">
+      <div class="secao">
+        <label>Usuário</label>
+        <input type="text" id="input-usuario" placeholder="usuário">
+      </div>
+      <div class="secao">
+        <label>Senha</label>
+        <input type="password" id="input-senha" placeholder="••••••••">
+      </div>
+      <button onclick="loginAdmin()">Entrar</button>
+      <p class="erro" id="erro-admin">Credenciais incorretas.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <script>
+    function loginAdmin() {
+      const usuario = document.getElementById('input-usuario').value.trim()
+      const senha = document.getElementById('input-senha').value.trim()
+      const erro = document.getElementById('erro-admin')
+      erro.style.display = 'none'
+
+      // Credenciais fixas — troque antes do evento
+      if (usuario === 'comissao' && senha === 'quadrilha2026') {
+        sessionStorage.setItem('admin', 'true')
+        window.location.href = 'painel.html'
+      } else {
+        erro.style.display = 'block'
+      }
+    }
+  </script>
+</body>
+</html>

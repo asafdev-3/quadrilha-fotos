@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin — Quadrilha</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { align-items: flex-start; padding: 2rem 0; }
+    .container { max-width: 600px; }
+    .fotos-preview { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .fotos-preview img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; }
+    .tab-btns { display: flex; gap: 1rem; margin-bottom: 2rem; }
+    .tab-btns button { flex: 1; }
+    .tab-btns button.ativo { background: #f5c518; color: #000; }
+    .tab-btns button.inativo { background: #1e1e1e; color: #fff; border: 1px solid #333; }
+    .tab { display: none; }
+    .tab.ativo { display: block; }
+    .contador { color: #888; font-size: 0.85rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="container container-admin">
+    <h1>Painel Admin 🎪</h1>
+    <p class="sub">Bem-vindo, comissão.</p>
+
+    <div class="tab-btns">
+      <button class="ativo" onclick="trocarTab('cadastro')">Cadastrar</button>
+      <button class="inativo" onclick="trocarTab('upload')">Upload</button>
+      <button class="inativo" onclick="trocarTab('clientes')">Clientes</button>
+    </div>
+
+    <!-- TAB CADASTRO -->
+    <div id="tab-cadastro" class="tab ativo">
+      <div id="form-cadastro" class="card">
+        <div class="secao">
+          <label>Nome do cliente</label>
+          <input type="text" id="nome-cliente" placeholder="Ex: João Silva">
+        </div>
+        <div class="secao">
+          <label>Senha (cliente digita)</label>
+          <input type="password" id="senha-cliente" placeholder="••••••••">
+        </div>
+        <button onclick="cadastrarCliente()">Gerar código</button>
+        <p class="erro" id="erro-cadastro"></p>
+      </div>
+
+      <div id="codigo-gerado" style="display:none" class="card">
+        <div class="codigo-display">
+          <p style="color:#888;margin-bottom:1rem">Mostre para o cliente:</p>
+          <div class="numero" id="numero-gerado"></div>
+          <p style="margin-top:1rem;color:#888">Esse é o seu código de acesso.<br>Guarde-o bem.</p>
+          <br>
+          <button onclick="novoCliente()">Próximo cliente</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB UPLOAD -->
+    <div id="tab-upload" class="tab">
+      <div class="card">
+        <div class="secao">
+          <label>Selecionar cliente</label>
+          <select id="select-cliente">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+        <div class="secao">
+          <label>Fotos (máx. 15)</label>
+          <input type="file" id="input-fotos" accept="image/*" multiple>
+          <div class="fotos-preview" id="preview-fotos"></div>
+        </div>
+        <p class="contador" id="contador-fotos"></p>
+        <button onclick="fazerUpload()">Enviar fotos</button>
+        <p class="erro" id="erro-upload"></p>
+      </div>
+    </div>
+
+    <!-- TAB CLIENTES -->
+    <div id="tab-clientes" class="tab">
+      <div class="lista-clientes" id="lista-clientes">
+        <p style="color:#666">Carregando...</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <script src="../js/admin.js"></script>
+
+  <script>
+  function lancarConfetes() {
+    const cores = ['#c0392b','#e67e22','#27613a','#f1c40f','#8e44ad','#2980b9']
+    for (let i = 0; i < 18; i++) {
+      setTimeout(() => {
+        const c = document.createElement('div')
+        c.className = 'confete'
+        c.style.left = Math.random() * 100 + 'vw'
+        c.style.background = cores[Math.floor(Math.random() * cores.length)]
+        c.style.width = (8 + Math.random() * 8) + 'px'
+        c.style.height = (8 + Math.random() * 8) + 'px'
+        c.style.animationDuration = (2.5 + Math.random() * 2) + 's'
+        c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px'
+        document.body.appendChild(c)
+        setTimeout(() => c.remove(), 5000)
+      }, i * 80)
+    }
+  }
+
+  setInterval(lancarConfetes, 6000)
+  setTimeout(lancarConfetes, 800)
+</script>
+</body>
+</html>
