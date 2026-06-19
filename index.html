@@ -9,9 +9,10 @@
 <body>
   <div class="container">
 
-
-<h1>Suas Fotos</h1>
-<p class="sub">Digite seu código e senha pra entrar no arraial 🎉</p>
+    <!-- Tela de login -->
+    <div id="tela-login">
+      <h1>Suas Fotos</h1>
+      <p class="sub">Digite seu código e senha pra entrar no arraial 🎉</p>
       <div class="card">
         <div class="secao">
           <label>Código (6 dígitos)</label>
@@ -30,6 +31,7 @@
     <div id="tela-fotos" style="display:none">
       <h1 id="nome-cliente"></h1>
       <p class="sub">Toque na foto para baixar.</p>
+      <div class="grid-fotos" id="grid-fotos"></div>
       <div class="paginacao" id="paginacao"></div>
       <br>
       <button class="btn-secundario" onclick="sair()">Sair</button>
@@ -40,28 +42,26 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script src="js/cliente.js"></script>
-
   <script>
-  function lancarConfetes() {
-    const cores = ['#c0392b','#e67e22','#27613a','#f1c40f','#8e44ad','#2980b9']
-    for (let i = 0; i < 18; i++) {
-      setTimeout(() => {
-        const c = document.createElement('div')
-        c.className = 'confete'
-        c.style.left = Math.random() * 100 + 'vw'
-        c.style.background = cores[Math.floor(Math.random() * cores.length)]
-        c.style.width = (8 + Math.random() * 8) + 'px'
-        c.style.height = (8 + Math.random() * 8) + 'px'
-        c.style.animationDuration = (2.5 + Math.random() * 2) + 's'
-        c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px'
-        document.body.appendChild(c)
-        setTimeout(() => c.remove(), 5000)
-      }, i * 80)
+    function lancarConfetes() {
+      const cores = ['#c0392b','#e67e22','#27613a','#f1c40f','#8e44ad','#2980b9']
+      for (let i = 0; i < 18; i++) {
+        setTimeout(() => {
+          const c = document.createElement('div')
+          c.className = 'confete'
+          c.style.left = Math.random() * 100 + 'vw'
+          c.style.background = cores[Math.floor(Math.random() * cores.length)]
+          c.style.width = (8 + Math.random() * 8) + 'px'
+          c.style.height = (8 + Math.random() * 8) + 'px'
+          c.style.animationDuration = (2.5 + Math.random() * 2) + 's'
+          c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px'
+          document.body.appendChild(c)
+          setTimeout(() => c.remove(), 5000)
+        }, i * 80)
+      }
     }
-  }
-
-  setInterval(lancarConfetes, 6000)
-  setTimeout(lancarConfetes, 800)
-</script>
+    setInterval(lancarConfetes, 6000)
+    setTimeout(lancarConfetes, 800)
+  </script>
 </body>
 </html>
