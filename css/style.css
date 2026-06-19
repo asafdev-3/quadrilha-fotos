@@ -368,3 +368,12 @@ button:active {
   .container, .container-admin { padding: 0; }
   button { font-size: 1rem; }
 }
+
+.btn-remover{
+  margin-top:10px;
+  background:#a30000;
+}
+
+.btn-remover:hover{
+  background:#7a0000;
+}

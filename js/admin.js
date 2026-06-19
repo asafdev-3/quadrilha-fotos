@@ -219,14 +219,57 @@ async function carregarListaClientes() {
     return
   }
 
-  lista.innerHTML = ''
-  clientes.forEach(c => {
-    const div = document.createElement('div')
-    div.className = 'cliente-item'
-    div.innerHTML = `
-      <div class="nome">${c.nome}</div>
-      <div class="codigo">Código: ${c.codigo}</div>
-    `
-    lista.appendChild(div)
-  })
+clientes.forEach(c => {
+  const div = document.createElement('div')
+
+  div.className = 'cliente-item'
+
+  div.innerHTML = `
+    <div class="nome">${c.nome}</div>
+
+    <div class="codigo">
+      Código: ${c.codigo}
+    </div>
+
+    <button
+      class="btn-remover"
+      onclick="removerCliente('${c.id}')">
+
+      🗑️ Remover
+
+    </button>
+  `
+
+  lista.appendChild(div)
+})
+}
+
+async function removerCliente(id) {
+
+  const confirmar = confirm(
+    'Deseja remover este cliente?'
+  )
+
+  if (!confirmar) return
+
+  // Apaga registros das fotos
+  await db
+    .from('fotos')
+    .delete()
+    .eq('cliente_id', id)
+
+  // Apaga cliente
+  const { error } = await db
+    .from('clientes')
+    .delete()
+    .eq('id', id)
+
+  if (error) {
+    alert('Erro ao remover.')
+    console.error(error)
+    return
+  }
+
+  carregarListaClientes()
+  carregarClientesSelect()
 }
